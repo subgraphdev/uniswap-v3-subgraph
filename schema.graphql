@@ -1,1 +1,109 @@
+type Factory @entity {
+  # factory address
+  id: ID!
+  # current number of pools in Factory
+  poolCount: BigInt!
+  # total number of txn
+  txnCount: BigInt!
+  # total volume of trade happened in USD
+  totalVolumeInUSD: BigDecimal!
+  # total volume of trade happened in ETH
+  totalVolumeInETH: BigDecimal!
+  # all time total swap fees collected in USD
+  totalFeesCollectedInUSD: BigDecimal!
+  # all time total swap fees colected   in ETH
+  totalFeesCollectedInETH: BigDecimal!
+  # curently locked asset in USD
+  totalValueLockedInUSD: BigDecimal!
+  # currently locked asset in ETH
+  totalValueLockedInETH: BigDecimal!
+  # current owner of the factory
+  owner: ID!
+}
 
+# USD calculations
+type Price @entity {
+  id: ID!
+  # price of ETH in usd
+  ethPriceUSD: BigDecimal!
+}
+
+type Token @entity {
+  # token address
+  id: ID!
+  # token symbol
+  symbol: String!
+  # token name
+  name: String!
+  # token total supply
+  totalSupply: BigInt!
+  # volume in token units
+  volume: BigDecimal!
+  # volume in derived USD
+  volumeUSD: BigDecimal!
+  # fees in USD
+  feesUSD: BigDecimal!
+  # total transactions which include given token
+  txCount: BigInt!
+  # number of pools which have this token
+  poolCount: BigInt!
+  # liquidity across all pools in token units
+  totalValueLocked: BigDecimal!
+  # liquidity across all pools in derived USD
+  totalValueLockedUSD: BigDecimal!
+}
+
+type Pool @entity {
+  # pool address
+  id: ID!
+  # creation
+  createdAtTimestamp: BigInt!
+  # block pool was created at
+  createdAtBlockNumber: BigInt!
+  # token0
+  token0: Token!
+  # token1
+  token1: Token!
+  # fee amount
+  fee: BigInt!
+  # in range liquidity
+  liquidity: BigInt!
+  # current price tracker
+  sqrtPrice: BigInt!
+  # tracker for global fee growth
+  feeGrowthGlobal0X128: BigInt!
+  # tracker for global fee growth
+  feeGrowthGlobal1X128: BigInt!
+  # token0 per token1
+  token0Price: BigDecimal!
+  # token1 per token0
+  token1Price: BigDecimal!
+  # current tick
+  tick: BigInt
+  # current observation index
+  observationIndex: BigInt!
+  # net token0 swapped
+  volumeToken0: BigDecimal!
+  # net token1 swapped
+  volumeToken1: BigDecimal!
+  # net swaped asset in  USD
+  volumeUSD: BigDecimal!
+  # fees in USD
+  feesUSD: BigDecimal!
+  # all time number of transactions
+  txCount: BigInt!
+  # all time fees collected in token0
+  collectedFeesToken0: BigDecimal!
+  # all time fees collected in token1
+  collectedFeesToken1: BigDecimal!
+  # all time fees collected derived USD
+  collectedFeesUSD: BigDecimal!
+  # total token 0 across all ticks
+  totalValueLockedToken0: BigDecimal!
+  # total token 1 across all ticks
+  totalValueLockedToken1: BigDecimal!
+  # total value locked in ETH
+  totalValueLockedETH: BigDecimal!
+  # total value locked in USD
+  totalValueLockedUSD: BigDecimal!
+}
